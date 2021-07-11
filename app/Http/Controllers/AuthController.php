@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Jobs\SendEmail;
 
 class AuthController extends Controller
 {
@@ -39,6 +41,9 @@ class AuthController extends Controller
             $user->password = app('hash')->make($plainPassword);
 
             $user->save();
+
+            // Send an email to the user
+            dispatch(new SendEmail($user));
 
             //return successful response
             return response()->json([
