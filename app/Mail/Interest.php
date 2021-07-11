@@ -29,6 +29,6 @@ class Interest extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from('notification@devchris.com.ng', env('APP_NAME'))->subject('New User Interest')->view('emails.interest');
+        return $this->from('notification@asolarnig.com', env('APP_NAME'))->subject('New User Interest')->view('emails.interest')->with(['details' => $this->data]);
     }
 }
